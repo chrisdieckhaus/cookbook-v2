@@ -3,7 +3,7 @@ jobs:
   deploy:
     docker:
       - image: google/cloud-sdk
-    working-directory: ~/
+    working_directory: ~/cookbook-v2
     steps:
       - run: ls
       - run: find . -name "Dockerfile"
