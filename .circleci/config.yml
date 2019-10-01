@@ -3,8 +3,8 @@ jobs:
   deploy:
     docker:
       - image: google/cloud-sdk
-    working_directory: ~/
     steps:
+      - checkout
       - run: ls
       - run: pwd
       - run: find . -name "Dockerfile"
