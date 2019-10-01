@@ -1,0 +1,23 @@
+{
+  "name": "cookbook-v2",
+  "version": "1.0.0",
+  "description": "This is version 2 of the cookbook.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisdieckhaus/cookbook-v2.git"
+  },
+  "author": "Chris Dieckhaus & Will Victor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chrisdieckhaus/cookbook-v2/issues"
+  },
+  "homepage": "https://github.com/chrisdieckhaus/cookbook-v2#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
