@@ -3,9 +3,10 @@ jobs:
   deploy:
     docker:
       - image: google/cloud-sdk
-    working_directory: ~/cookbook-v2
+    working_directory: ~/
     steps:
       - run: ls
+      - run: pwd
       - run: |
           echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
           gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
