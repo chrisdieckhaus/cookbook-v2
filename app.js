@@ -1,9 +1,18 @@
 const express = require('express');
 var graphqlHTTP = require('express-graphql');
 var { buildSchema } = require('graphql');
+const { Client } = require('pg');
 
 const app = express();
 const port = 8080;
+
+const client = new Client();
+client.connect();
+
+client.query('SELECT * FROM recipes', (err, res) => {
+    console.log(res.rows)
+    client.end()
+})
 
 var schema = buildSchema(`
   type Query {
