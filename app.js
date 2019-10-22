@@ -9,10 +9,10 @@ const port = 8080;
 const client = new Client();
 client.connect();
 
-client.query('SELECT * FROM recipes', (err, res) => {
-    console.log(res.rows)
-    client.end()
-})
+// client
+//   .query('SELECT * FROM recipes')
+//   .then(res => console.log(res.rows[0]))
+//   .catch(e => console.error(e.stack));
 
 var schema = buildSchema(`
   type Query {
@@ -32,5 +32,13 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true,
 }));
 
-app.get('/', (req, res) => res.send('Hello, Cookbook-v2! Check for graphql at /graphql'));
+app.get('/', (request, response) => 
+{
+    client.query('SELECT * FROM recipes')
+        .then(res => {
+            console.log(res.rows);
+            response.status(200).send(res.rows);
+        })
+        .catch(e => console.error(e.stack));
+});
 app.listen(port, () => console.log(`Cookbook listening on port ${port}!`));
