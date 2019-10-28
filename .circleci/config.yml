@@ -6,12 +6,13 @@ jobs:
     steps:
       - checkout
       - run: |
-          touch .env
-          echo "export PGUSER=${PGUSER}" >> .env
-          echo "export PGPASSWORD=${PGPASSWORD}" >> .env
-          echo "export PGHOST=${PGHOST}" >> .env
-          echo "export PGPORT=${PGPORT}" >> .env
-          echo "export PGDATABASE=${PGDATABASE}" >> .env
+          touch run_app.sh
+          echo "export PGUSER=${PGUSER}" >> run_app.sh
+          echo "export PGPASSWORD=${PGPASSWORD}" >> run_app.sh
+          echo "export PGHOST=${PGHOST}" >> run_app.sh
+          echo "export PGPORT=${PGPORT}" >> run_app.sh
+          echo "export PGDATABASE=${PGDATABASE}" >> run_app.sh
+          echo "node app.js" >> run_app.sh
       - run: |
           echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
           gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
