@@ -1,11 +1,10 @@
 const express = require('express');
 var graphqlHTTP = require('express-graphql');
-var { GraphQlSchema,
-  GraphQLObjectType,
+var { GraphQLObjectType,
   GraphQLSchema,
   GraphQLInt,
-  GraphQLString,
-  buildSchema } = require('graphql');
+  GraphQLList,
+  GraphQLString } = require('graphql');
 const { Client } = require('pg');
 
 const RecipeType = new GraphQLObjectType({
@@ -14,22 +13,32 @@ const RecipeType = new GraphQLObjectType({
     recipe_id: {type: GraphQLInt},
     recipe_name: {type: GraphQLString},
     ingredients: {type: GraphQLString},
-    description: {type: GraphQLString},
+    directions: {type: GraphQLString},
   })
 })
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
+    // TODO We could consider just making a 'recipes' endpoint with an optional id param
     recipe: {
       type: RecipeType,
       args: {
         recipe_id: {type: GraphQLInt}
       },
       resolve: (root, args) => {
+        var recipeId = args.recipe_id;
+        return client.query('SELECT * FROM recipes WHERE recipe_id = ' + recipeId)
+          .then(res => res.rows[0])
+          .catch((e) => console.log(e));
+      } 
+    },
+    recipes: {
+      type: new GraphQLList(RecipeType),
+      resolve: (root, args) => {
         return client.query('SELECT * FROM recipes')
-        .then(res => res.rows)
-        .catch((e) => console.log(e));
+          .then(res => res.rows)
+          .catch((e) => console.log(e));
       } 
     }
   })
@@ -42,7 +51,7 @@ const schema =  new GraphQLSchema({
 const app = express();
 const port = 8080;
 
-app.use(graphqlHTTP({
+app.use('/graphql', graphqlHTTP({
   schema,
   graphiql: true
 }))
@@ -50,7 +59,11 @@ app.use(graphqlHTTP({
 const client = new Client();
 client.connect();
 
+app.get('/', (request, response) => {
+  response.status(200).send('Go Nats');
+});
 
+// TODO Delete this
 app.get('/recipes', (request, response) => 
 {
     client.query('SELECT * FROM recipes')
@@ -59,6 +72,5 @@ app.get('/recipes', (request, response) =>
         })
         .catch(e => console.error(e.stack));
 });
-
 
 app.listen(port, () => console.log(`Cookbook listening on port ${port}!`));
