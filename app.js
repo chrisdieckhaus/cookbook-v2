@@ -1,39 +1,64 @@
 const express = require('express');
 var graphqlHTTP = require('express-graphql');
-var { buildSchema } = require('graphql');
+var { GraphQlSchema,
+  GraphQLObjectType,
+  GraphQLSchema,
+  GraphQLInt,
+  GraphQLString,
+  buildSchema } = require('graphql');
 const { Client } = require('pg');
+
+const RecipeType = new GraphQLObjectType({
+  name: 'Recipe',
+  fields: () => ({
+    recipe_id: {type: GraphQLInt},
+    recipe_name: {type: GraphQLString},
+    ingredients: {type: GraphQLString},
+    description: {type: GraphQLString},
+  })
+})
+
+const QueryType = new GraphQLObjectType({
+  name: 'Query',
+  fields: () => ({
+    recipe: {
+      type: RecipeType,
+      args: {
+        recipe_id: {type: GraphQLInt}
+      },
+      resolve: (root, args) => {
+        return client.query('SELECT * FROM recipes')
+        .then(res => res.rows)
+        .catch((e) => console.log(e));
+      } 
+    }
+  })
+});
+
+const schema =  new GraphQLSchema({
+  query: QueryType
+})
 
 const app = express();
 const port = 8080;
 
+app.use(graphqlHTTP({
+  schema,
+  graphiql: true
+}))
+
 const client = new Client();
 client.connect();
 
-var schema = buildSchema(`
-  type Query {
-    hello: String,
-    Will: String
-  }
-`);
 
-var root = { 
-    hello: () => 'Hello cookbook! This is GraphQL.' ,
-    Will: "Will is a guy"
-};
-
-app.use('/graphql', graphqlHTTP({
-  schema: schema,
-  rootValue: root,
-  graphiql: true,
-}));
-
-app.get('/', (request, response) => 
+app.get('/recipes', (request, response) => 
 {
     client.query('SELECT * FROM recipes')
         .then(res => {
-            console.log(res.rows);
             response.status(200).send(res.rows);
         })
         .catch(e => console.error(e.stack));
 });
+
+
 app.listen(port, () => console.log(`Cookbook listening on port ${port}!`));
