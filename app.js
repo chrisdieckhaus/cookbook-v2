@@ -60,7 +60,7 @@ const client = new Client();
 client.connect();
 
 app.get('/', (request, response) => {
-  response.status(200).send('Go Nats');
+  response.status(200).send(`Go Nats ${process.env.PGUSER}`);
 });
 
 // TODO Delete this
