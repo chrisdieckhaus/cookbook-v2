@@ -9,11 +9,6 @@ const port = 8080;
 const client = new Client();
 client.connect();
 
-// client
-//   .query('SELECT * FROM recipes')
-//   .then(res => console.log(res.rows[0]))
-//   .catch(e => console.error(e.stack));
-
 var schema = buildSchema(`
   type Query {
     hello: String,
