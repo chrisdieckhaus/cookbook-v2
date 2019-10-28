@@ -17,4 +17,4 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-CMD ["./run_app.sh"]
+CMD ["bash", "./run_app.sh"]
