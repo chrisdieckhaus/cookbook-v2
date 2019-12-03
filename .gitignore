@@ -127,3 +127,6 @@ environment.sh
 
 #cloud sql proxy
 cloud_sql_proxy
+
+#ignore built files
+./built/*
