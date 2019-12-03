@@ -1,6 +1,6 @@
-const express = require('express');
-var graphqlHTTP = require('express-graphql');
-const { Client } = require('pg');
+import * as express from 'express';
+import * as graphqlHTTP from 'express-graphql';
+import { Client } from 'pg';
 
 const {createSchema} = require('./graphql_schema/recipes');
 

@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "outDir": "./built",
+        "allowJs": true,
+        "target": "es5",
+        "lib": ["ES2015", "esnext.asynciterable"]
+    },
+    "include": [
+        "*.js",
+        "*.ts"
+    ]
+}

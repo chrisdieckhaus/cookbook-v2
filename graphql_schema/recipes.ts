@@ -1,8 +1,8 @@
-var { GraphQLObjectType,
+import { GraphQLObjectType,
   GraphQLSchema,
   GraphQLInt,
   GraphQLList,
-  GraphQLString } = require('graphql');
+  GraphQLString } from 'graphql';
 
 const createSchema = (client) => {
     const RecipeType = new GraphQLObjectType({
