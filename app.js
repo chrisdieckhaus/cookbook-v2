@@ -63,14 +63,4 @@ app.get('/', (request, response) => {
   response.status(200).send(`Go Nats ${process.env.PGUSER}`);
 });
 
-// TODO Delete this
-app.get('/recipes', (request, response) => 
-{
-    client.query('SELECT * FROM recipes')
-        .then(res => {
-            response.status(200).send(res.rows);
-        })
-        .catch(e => console.error(e.stack));
-});
-
 app.listen(port, () => console.log(`Cookbook listening on port ${port}!`));
