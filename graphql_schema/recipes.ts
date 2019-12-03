@@ -75,7 +75,6 @@ const createSchema = (client) => {
         query: QueryType,
         mutation: MutationType,
       });
-}
+};
 
-
-exports.createSchema = createSchema;
+export {createSchema};
