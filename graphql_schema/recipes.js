@@ -4,7 +4,6 @@ var { GraphQLObjectType,
   GraphQLList,
   GraphQLString } = require('graphql');
 
-
 const createSchema = (client) => {
     const RecipeType = new GraphQLObjectType({
         name: 'Recipe',
@@ -49,16 +48,24 @@ const createSchema = (client) => {
               createRecipe: {
                   type: RecipeType,
                   args: {
+                    recipe_name: {type: GraphQLString},
+                    ingredients: {type: GraphQLString},
+                    directions: {type: GraphQLString}
                   },
                   resolve: (root, args) => {
-                      client.query(
-                          `INSERT INTO recipes
-                          (recipe_name, ingredients, directions)
-                          VALUES
-                          ('Steak frites', 'steak', 'cook it')`
-                      ).then(res => {
-                          console.log("added steak frites");
-                      }).catch(e => console.error(e));
+                    // TODO We need to sql-sanitize the inputs
+                    return client.query(
+                        `INSERT INTO recipes
+                        (recipe_name, ingredients, directions)
+                        VALUES
+                        ('${args.recipe_name}', '${args.ingredients}', '${args.directions}')
+                        RETURNING recipe_id, recipe_name, ingredients, directions`
+                    ).then(res => {
+                      var createdRecipe = res.rows[0];
+                      console.log(createdRecipe);
+                      return createdRecipe;
+                    })
+                    .catch(e => console.error(e));
                   }
               }
           })
