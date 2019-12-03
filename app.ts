@@ -1,11 +1,11 @@
-const express = require('express');
-var graphqlHTTP = require('express-graphql');
-var { GraphQLObjectType,
+import * as express from 'express';
+import * as graphqlHTTP from 'express-graphql';
+import { GraphQLObjectType,
   GraphQLSchema,
   GraphQLInt,
   GraphQLList,
-  GraphQLString } = require('graphql');
-const { Client } = require('pg');
+  GraphQLString } from 'graphql';
+import { Client } from 'pg';
 
 const RecipeType = new GraphQLObjectType({
   name: 'Recipe',

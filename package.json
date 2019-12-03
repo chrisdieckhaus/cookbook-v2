@@ -2,10 +2,11 @@
   "name": "cookbook-v2",
   "version": "1.0.0",
   "description": "This is version 2 of the cookbook.",
-  "main": "server.js",
+  "main": "built/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "build": "tsc",
+    "start": "tsc && node built/app.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,8 @@
     "graphql": "^14.5.8",
     "pg": "^7.12.1",
     "typescript": "^3.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.14"
   }
 }
