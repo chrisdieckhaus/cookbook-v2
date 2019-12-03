@@ -124,3 +124,6 @@ sketch
 
 #environment variables
 environment.sh
+
+#cloud sql proxy
+cloud_sql_proxy
