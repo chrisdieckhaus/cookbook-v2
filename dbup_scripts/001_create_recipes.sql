@@ -1,0 +1,7 @@
+CREATE TABLE recipes
+(
+	recipe_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	recipe_name CHAR(1000) NOT NULL,
+	ingredients TEXT NOT NULL,
+	directions TEXT NOT NULL
+);
