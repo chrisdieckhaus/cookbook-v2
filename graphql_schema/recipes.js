@@ -26,7 +26,7 @@ const createSchema = (client) => {
             },
             resolve: (root, args) => {
               var recipeId = args.recipe_id;
-              return client.query('SELECT * FROM recipes WHERE recipe_id = ' + recipeId)
+              return client.query('SELECT * FROM recipes WHERE recipe_id = $1', [recipeId])
                 .then(res => res.rows[0])
                 .catch((e) => console.log(e));
             } 
@@ -53,13 +53,13 @@ const createSchema = (client) => {
                     directions: {type: GraphQLString}
                   },
                   resolve: (root, args) => {
-                    // TODO We need to sql-sanitize the inputs
                     return client.query(
                         `INSERT INTO recipes
                         (recipe_name, ingredients, directions)
                         VALUES
-                        ('${args.recipe_name}', '${args.ingredients}', '${args.directions}')
-                        RETURNING recipe_id, recipe_name, ingredients, directions`
+                        ($1, $2, $3)
+                        RETURNING recipe_id, recipe_name, ingredients, directions`,
+                        [args.recipe_name, args.ingredients, args.directions]
                     ).then(res => {
                       var createdRecipe = res.rows[0];
                       console.log(createdRecipe);
