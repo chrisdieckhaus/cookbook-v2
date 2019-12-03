@@ -20,6 +20,9 @@ jobs:
           gcloud app deploy
 workflows:
   version: 2
-  deploy:
+  build-test-deploy:
     jobs:
-      - deploy
+      - deploy:
+        filters:
+          branches:
+            only: master
