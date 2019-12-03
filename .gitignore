@@ -129,4 +129,5 @@ environment.sh
 cloud_sql_proxy
 
 #ignore built files
-./built/*
+built
+built/*
