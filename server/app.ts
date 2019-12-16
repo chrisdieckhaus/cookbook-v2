@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as graphqlHTTP from 'express-graphql';
 import { Client } from 'pg';
-import {createSchema} from './graphql_schema/recipes';
+import {createSchema} from './graphql-schema/recipes';
 
 const app = express();
 const port = 8080;
