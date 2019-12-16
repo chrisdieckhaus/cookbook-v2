@@ -5,8 +5,9 @@
   "main": "built/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "start": "tsc && node built/app.js"
+    "build": "tsc && npm run webpack",
+    "start": "tsc && npm run webpack && node built/app.js",
+    "webpack": "./node_modules/.bin/webpack -w"
   },
   "repository": {
     "type": "git",
@@ -23,9 +24,17 @@
     "express-graphql": "^0.9.0",
     "graphql": "^14.5.8",
     "pg": "^7.12.1",
-    "typescript": "^3.7.2"
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "typescript": "^3.7.2",
+    "webpack": "^4.41.2"
   },
   "devDependencies": {
-    "@types/node": "^12.12.14"
+    "@types/node": "^12.12.14",
+    "css-loader": "^3.3.2",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.1",
+    "webpack-cli": "^3.3.10"
   }
 }

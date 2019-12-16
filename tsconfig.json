@@ -3,11 +3,16 @@
         "outDir": "./built",
         "allowJs": true,
         "target": "es5",
-        "lib": ["ES2015", "esnext.asynciterable"]
+        "jsx": "preserve",
+        "lib": ["ES2015", "esnext.asynciterable", "dom"]
     },
     "include": [
         "*.js",
         "*.ts",
+        "*.jsx",
+        "*.tsx",
+        "**/*.jsx",
+        "**/*.tsx",
         "**/*.js",
         "**/*.ts"
     ],

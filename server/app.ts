@@ -15,8 +15,6 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true
 }))
 
-app.get('/', (request, response) => {
-  response.status(200).send(`Go Nats ${process.env.PGUSER}`);
-});
+app.use(express.static(__dirname +'../client')); //serves the index.html
 
 app.listen(port, () => console.log(`Cookbook listening on port ${port}!`));
