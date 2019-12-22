@@ -15,6 +15,8 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true
 }))
 
-app.use(express.static(__dirname +'../client')); //serves the index.html
+console.log(__dirname);
+app.use('/', express.static(__dirname +'./../client/')); //serves the index.html
+app.use('/webpack-build', express.static(__dirname + './../webpack-build')); //serves webpack-build
 
 app.listen(port, () => console.log(`Cookbook listening on port ${port}!`));

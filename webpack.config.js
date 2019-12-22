@@ -6,12 +6,13 @@ var APP_DIR = path.resolve(__dirname, './built/client');
 
 const config = {
    entry: {
-     main: APP_DIR + '/index.jsx'
+     main: APP_DIR + '/index.js'
    },
    output: {
      filename: 'bundle.js',
      path: BUILD_DIR,
    },
+   devtool: 'inline-source-map',
    module: {
     rules: [
      {
@@ -23,7 +24,12 @@ const config = {
        }, {
            loader: "sass-loader" // compiles Sass to CSS
        }]
-     }
+     },
+    {
+     test: /\.tsx?$/,
+     use: 'ts-loader',
+     exclude: /node_modules/,
+    },
     ],
 
   }

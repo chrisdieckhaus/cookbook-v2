@@ -3,7 +3,8 @@
         "outDir": "./built",
         "allowJs": true,
         "target": "es5",
-        "jsx": "preserve",
+        "jsx": "react",
+        "sourceMap": true,
         "lib": ["ES2015", "esnext.asynciterable", "dom"]
     },
     "include": [
@@ -17,6 +18,7 @@
         "**/*.ts"
     ],
     "exclude": [
-        "./built"
+        "./built",
+        "webpack.config.js"
     ]
 }
