@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/chrisdieckhaus/cookbook-v2#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "express-graphql": "^0.9.0",
     "graphql": "^14.5.8",
     "pg": "^7.12.1",
